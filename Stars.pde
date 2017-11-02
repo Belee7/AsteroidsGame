@@ -1,4 +1,18 @@
-class Stars //note that this class does NOT extend Floater
+Star[] Sky = new Star[400];
+
+
+ private class Star 
 {
-  //your code here
+  private int myX, myY;
+  Star()
+  {
+    myX = (int)(Math.random()*500);
+    myY = (int)(Math.random()*500);
+  }
+  private void show()
+  {
+    noStroke();
+    fill(255, 255, 255);
+    ellipse(myX, myY, 2, 2);
+  }
 }
