@@ -2,13 +2,16 @@ Spaceship m = new Spaceship();
 private boolean wIsPressed;
 private boolean aIsPressed;
 private boolean dIsPressed;
-private boolean sIsPressed;
 public void setup()
 {
   size(500, 500);
   for (int i = 0; i < Sky.length; i++)
   {
     Sky[i] = new Star();
+  }
+  for (int i = 0; i < Field.length; i++)
+  {
+    Field[i] = new Asteroid();
   }
 }
 public void draw() 
@@ -19,11 +22,19 @@ public void draw()
   {
     Sky[i].show();
   }
+  for (int i = 0; i < Field.length; i++)
+  {
+    Field[i].show();
+    Field[i].move();
+    
+  }
   m.show();
   m.move();
-   if (wIsPressed == true) //move
+
+ 
+  if (wIsPressed == true) //move
   {
-    m.accelerate(0.1);
+    m.accelerate(0.05);
   }
   if (aIsPressed == true)//left
   {
@@ -31,19 +42,8 @@ public void draw()
   }
   if (dIsPressed == true) //right
   {
-     m.turn(7);
+    m.turn(7);
   }
-  if (sIsPressed == true) //hyperspace
-  {
-    
-     m.setX((int)(Math.random()*500));
-      m.setY((int)(Math.random()*500));
-      m.turn((int)(Math.random()*300));
-    m.setDirectionX(0);
-     m.setDirectionY(0);
- 
-  }
-
 }
 public void  keyPressed()
 {
@@ -61,7 +61,12 @@ public void  keyPressed()
   }
   if (key == 's') //hyperspace
   {
-    sIsPressed = true;
+
+    m.setX((int)(Math.random()*500));
+    m.setY((int)(Math.random()*500));
+    m.turn((int)(Math.random()*300));
+    m.setDirectionX(0);
+    m.setDirectionY(0);
   }
 }
 public void keyReleased()
@@ -77,9 +82,5 @@ public void keyReleased()
   if (key == 'd') //right
   {
     dIsPressed = false;
-  }
-  if (key == 's') //hyperspace
-  {
-    sIsPressed = false;
   }
 }
