@@ -1,4 +1,4 @@
-Asteroid[] Field = new Asteroid[20];
+
 class Asteroid extends Floater
 {
   private int rotSpeed = ((int)Math.random() * 4) - 2;

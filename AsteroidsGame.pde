@@ -1,17 +1,18 @@
+ArrayList <Asteroid> field=new ArrayList <Asteroid>();
 Spaceship m = new Spaceship();
 private boolean wIsPressed;
 private boolean aIsPressed;
 private boolean dIsPressed;
 public void setup()
-{
+{                                                  
   size(500, 500);
   for (int i = 0; i < Sky.length; i++)
   {
     Sky[i] = new Star();
   }
-  for (int i = 0; i < Field.length; i++)
+  for (int i = 0; i < 40; i++)
   {
-    Field[i] = new Asteroid();
+    field.add(new Asteroid()) ;
   }
 }
 public void draw() 
@@ -22,10 +23,10 @@ public void draw()
   {
     Sky[i].show();
   }
-  for (int i = 0; i < Field.length; i++)
+  for (int i = 0; i < field.size(); i++)
   {
-    Field[i].show();
-    Field[i].move();
+    field.get(i).show();
+    field.get(i).move();
     
   }
   m.show();
@@ -43,6 +44,11 @@ public void draw()
   if (dIsPressed == true) //right
   {
     m.turn(7);
+  }
+  for (int i=0; i < field.size(); i++)
+  {
+  if(dist(m.getX(), m.getY(),field.get(i).getX(),field.get(i).getY()) < 20)
+  field.remove(i);
   }
 }
 public void  keyPressed()
