@@ -1,6 +1,10 @@
 ArrayList <Asteroid> field=new ArrayList <Asteroid>();
+ArrayList <Bullet> stream =new ArrayList <Bullet>();
+ArrayList <Bullet2> stream2 =new ArrayList <Bullet2>();
 Spaceship m = new Spaceship();
 private boolean wIsPressed;
+private boolean spaceIsPressed;
+private boolean qIsPressed;
 private boolean aIsPressed;
 private boolean dIsPressed;
 public void setup()
@@ -12,7 +16,7 @@ public void setup()
   }
   for (int i = 0; i < 40; i++)
   {
-    field.add(new Asteroid()) ;
+    field.add(new Asteroid());
   }
 }
 public void draw() 
@@ -27,12 +31,24 @@ public void draw()
   {
     field.get(i).show();
     field.get(i).move();
-    
   }
   m.show();
   m.move();
 
- 
+  if (spaceIsPressed == true && frameCount % 12 == 0) //move
+    stream.add(new Bullet(m));
+    if (qIsPressed == true && frameCount % 80 == 0) //move
+    stream2.add(new Bullet2(m));
+  for (int i = 0; i < stream.size(); i++)
+  {
+    stream.get(i).show();
+    stream.get(i).move();
+  }
+  for (int i = 0; i < stream2.size(); i++)
+  {
+    stream2.get(i).show();
+    stream2.get(i).move();
+  }
   if (wIsPressed == true) //move
   {
     m.accelerate(0.05);
@@ -47,12 +63,44 @@ public void draw()
   }
   for (int i=0; i < field.size(); i++)
   {
-  if(dist(m.getX(), m.getY(),field.get(i).getX(),field.get(i).getY()) < 20)
-  field.remove(i);
+    if (dist(m.getX(), m.getY(), field.get(i).getX(), field.get(i).getY()) < 20)
+      field.remove(i);
+  }
+  for (int i = 0; i < field.size(); i++)
+  {
+    for (int b = 0; b < stream.size(); b++)
+    {
+      if (dist(stream.get(b).getX(), stream.get(b).getY(), field.get(i).getX(), field.get(i).getY()) < 12)
+      {
+        field.remove(i);
+        stream.remove(b);
+        break;
+      }
+    }
+  }
+  for (int i = 0; i < field.size(); i++)
+  {
+    for (int b = 0; b < stream2.size(); b++)
+    {
+      if (dist(stream2.get(b).getX(), stream2.get(b).getY(), field.get(i).getX(), field.get(i).getY()) < 40)
+      {
+        field.remove(i);
+        //stream2.remove(b);
+        break;
+      }
+    }
   }
 }
 public void  keyPressed()
 {
+  if (key == ' ') //move
+  {
+    spaceIsPressed = true;
+  }
+  if (key == 'q') //move
+  {
+    qIsPressed = true;
+  }
   if (key == 'w') //move
   {
     wIsPressed = true;
@@ -67,7 +115,6 @@ public void  keyPressed()
   }
   if (key == 's') //hyperspace
   {
-
     m.setX((int)(Math.random()*500));
     m.setY((int)(Math.random()*500));
     m.turn((int)(Math.random()*300));
@@ -77,6 +124,14 @@ public void  keyPressed()
 }
 public void keyReleased()
 {
+  if (key == ' ') //move
+  {
+    spaceIsPressed = false;
+  }
+   if (key == 'q') //move
+  {
+    qIsPressed = false;
+  }
   if (key == 'w') //move
   {
     wIsPressed = false;

@@ -66,25 +66,25 @@ class Spaceship extends Floater
     }
     endShape(CLOSE);
     if (wIsPressed == true) //move
-  {
-   noStroke();
-    fill(0, 191, 255);
-    rect (-10.5, -5, 2.5, 10);
-  }
-    
+    {
+      noStroke();
+      fill(0, 191, 255);
+      rect (-10.5, -5, 2.5, 10);
+    }
+
 
     //"unrotate" and "untranslate" in reverse order
     rotate(-1*dRadians);
     translate(-1*(float)myCenterX, -1*(float)myCenterY);
   }   
-  public void setX(int x) {
-    myCenterX = x;
-  }  
-  public int getX() {
+ public int getX() {
     return (int)myCenterX;
   }   
   public void setY(int y) {
-    myCenterY = y;
+    myCenterY=y;
+  }   
+   public void setX(int x) {
+    myCenterX=x;
   }   
   public int getY() {
     return (int)myCenterY;
